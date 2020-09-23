@@ -1,0 +1,316 @@
+<div class="col-12 grid-margin">
+  <div class="card">
+    <div class="card-header d-flex justify-content-between" *ngIf="!edit">
+      <h4 class="card-title m-0">Add New Shop</h4>
+      <button class="btn btn-sm btn-light btn-outline-secondary text-success font-weight-bold"
+        routerLink="/general-pages/upload-shop"><i class="mdi mdi-upload"></i> UPLOAD FILE</button>
+    </div>
+    <div class="card-body">
+      <form class="form-sample" [formGroup]="addShopForm">
+        <p class="card-description">
+          Shop info
+        </p>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Shop Name</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" formControlName="name" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6" formGroupName="owner">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Shop Owner`s Name</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" formControlName="first_name" />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6" formGroupName="owner">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Password</label>
+              <div class="col-sm-8">
+                <input type="password" class="form-control" formControlName="password" />
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Shop Open Time</label>
+              <div class="col-sm-8">
+                <app-select-dropdown [list]="openTime" [parentForm]="addShopForm" [controlName]="'open_time'" [selected]="addShopForm.value.open_time">
+                </app-select-dropdown>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Shop Close Time</label>
+              <div class="col-sm-8">
+                <app-select-dropdown [list]="closeTime" [parentForm]="addShopForm" [controlName]="'close_time'" [selected]="addShopForm.value.close_time">
+                </app-select-dropdown>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Shop Landline Number</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" formControlName="shop_land_line">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Cell Number</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6" formGroupName="owner">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">GST Number</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" formControlName="gst_info">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+              <div class="form-group row">
+                  <label class="col-sm-6 col-form-label">Upload GST Reference</label>
+                  <div class="col-sm-6" *ngIf="!gstUrl">
+                      <div
+                          class="file btn btn-lg btn-secondary d-flex align-items-center justify-content-center text-success font-weight-bold">
+                          <i class="mdi mdi-upload"></i>
+                          UPLOAD
+                          <input type="file" name="file" class="form-control"
+                              (change)="uploadImage($event.target.files,'gst')" />
+                      </div>
+                      <sub>Upload file format JPEG, PNG, GIF, Should not exceed 20MB</sub>
+                  </div>
+                  <div class="col-md-6" *ngIf="gstUrl">
+                      <div
+                          class="img-wrap file btn btn-lg btn-secondary d-flex align-items-center justify-content-center text-success font-weight-bold">
+                          <span class="close" (click)="deleteMedia('gst')">&times;</span>
+                          <img [src]="gstUrl" style="width: 10rem;
+                          height: 10rem;">
+                      </div>
+
+                  </div>
+              </div>
+            <!-- <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Upload GST Reference</label>
+              <div class="col-sm-8">
+                <div class="d-flex">
+                  <input type="text" class="form-control" [value]="selectedGSTFile" disabled>
+                  <input type="file" class="form-control" (change)="uploadImage($event.target.files,'gst')">
+                  <button class="btn btn-light btn-sm">Browse</button>
+                </div>
+                <sub>Upload file format JPEG, PNG, GIF, Should not exceed 20MB</sub>
+              </div>
+
+            </div> -->
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6" formGroupName="owner">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">PAN Number</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" formControlName="pan_card">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+              <div class="form-group row">
+                  <label class="col-sm-6 col-form-label">Upload PAN Reference</label>
+                  <div class="col-sm-6" *ngIf="!panUrl">
+                      <div
+                          class="file btn btn-lg btn-secondary d-flex align-items-center justify-content-center text-success font-weight-bold">
+                          <i class="mdi mdi-upload"></i>
+                          UPLOAD
+                          <input type="file" name="file" class="form-control"
+                              (change)="uploadImage($event.target.files,'pan')" />
+                      </div>
+                      <sub>Upload file format JPEG, PNG, GIF, Should not exceed 20MB</sub>
+                  </div>
+                  <div class="col-md-6" *ngIf="panUrl">
+                      <div
+                          class="img-wrap file btn btn-lg btn-secondary d-flex align-items-center justify-content-center text-success font-weight-bold">
+                          <span class="close" (click)="deleteMedia('pan')">&times;</span>
+                          <img [src]="panUrl" style="width: 10rem;
+                          height: 10rem;">
+                      </div>
+
+                  </div>
+              </div>
+            <!-- <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Upload PAN Reference</label>
+              <div class="col-sm-8">
+                <div class="d-flex">
+                  <input type="text" class="form-control" [value]="selectedPANFile" disabled>
+                  <input type="file" class="form-control" (change)="uploadImage($event.target.files,'pan')">
+                  <button class="btn btn-light btn-sm">Browse</button>
+                </div>
+                <sub>Upload file format JPEG, PNG, GIF, Should not exceed 20MB</sub>
+              </div>
+
+            </div> -->
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Service Area</label>
+              <div class="col-sm-8">
+                <app-select-dropdown [list]="serviceAreaList" [parentForm]="addShopForm"
+                  [controlName]="'service_area_id'" [selected]="addShopForm.value.service_area_id"></app-select-dropdown>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Category</label>
+              <div class="col-sm-8">
+                <app-select-dropdown [list]="categoryList" [parentForm]="addShopForm" [controlName]="'category_id'" [selected]="addShopForm.value.category_id">
+                </app-select-dropdown>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="card-description">
+          Address
+        </p>
+        <div formGroupName="address">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Address 1</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" formControlName="address_line_1" />
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">State</label>
+                <div class="col-sm-8">
+                  <app-select-dropdown [list]="stateList" [parentForm]="addShopForm.controls['address']"
+                    [controlName]="'state_id'" [selected]="addShopForm.value.address.state_id">
+                  </app-select-dropdown>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Address 2</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" formControlName="address_line_2" />
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Postcode</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" formControlName="pincode" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">City</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" formControlName="city" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-12 col-form-label">Shop Location <i class="mdi mdi-crosshairs-gps"></i></label>
+              <div class="col-sm-12">
+                <agm-map [latitude]="lat" [longitude]="lng">
+                  <agm-marker [latitude]="lat" [longitude]="lng" [markerDraggable]="true"
+                    (dragEnd)="selectMarker($event)"></agm-marker>
+                </agm-map>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Discount</label>
+              <div class="col-sm-5">
+                <app-select-dropdown [list]="discountTypes" [parentForm]="addShopForm" [controlName]="'discount_type'">
+                </app-select-dropdown>
+              </div>
+              <div class="col-sm-3">
+                <input type="text" class="form-control" placeholder="Enter Value" formControlName="discount_amount" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+              <div class="form-group row">
+                  <label class="col-sm-6 col-form-label">Shop Banner Image</label>
+                  <div class="col-sm-6" *ngIf="!bannerUrl">
+                      <div
+                          class="file btn btn-lg btn-secondary d-flex align-items-center justify-content-center text-success font-weight-bold">
+                          <i class="mdi mdi-upload"></i>
+                          UPLOAD
+                          <input type="file" name="file" class="form-control"
+                              (change)="uploadImage($event.target.files,'banner')" />
+                      </div>
+                      <sub>Upload file format JPEG, PNG, GIF, Should not exceed 20MB</sub>
+                  </div>
+                  <div class="col-md-6" *ngIf="bannerUrl">
+                      <div
+                          class="img-wrap file btn btn-lg btn-secondary d-flex align-items-center justify-content-center text-success font-weight-bold">
+                          <span class="close" (click)="deleteMedia('banner')">&times;</span>
+                          <img [src]="bannerUrl" style="width: 10rem;
+                          height: 10rem;">
+                      </div>
+
+                  </div>
+              </div>
+            <!-- <div class="form-group row mb-auto">
+              <label class="col-sm-4 col-form-label">Shop Banner Image</label>
+              <div class="col-sm-8">
+                <div class="d-flex">
+                  <input type="text" class="form-control" [value]="selectedBannerFile" disabled>
+                  <input type="file" class="form-control" (change)="uploadImage($event.target.files,'banner')">
+                  <button class="btn btn-light btn-sm">Browse</button>
+                </div>
+                <sub>Upload file format JPEG, PNG, GIF, Should not exceed 20MB</sub>
+              </div>
+            </div> -->
+          </div>
+          <div class="col-md-6 text-right">
+            <!-- <button class="btn btn-success btn-sm" *ngIf="!edit">SAVE</button> -->
+            <button class="btn btn-success btn-sm" (click)="updateShop()" *ngIf="edit" data-dismiss="modal">UPDATE</button>
+            <button class="btn btn-success btn-sm" (click)="addShop()" *ngIf="!edit">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,113 @@
+<div class="row">
+  <div class="col-12 grid-margin">
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex justify-content-between">
+              <div></div>
+                <div>
+                    <i (click) = "filter = !filter"  class="mdi mdi-filter"></i>
+                </div>
+            </div>
+          </div>
+      <div class="card-body" *ngIf = "filter">
+        <form>
+        <div class="row">
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label >Shop Name</label>
+                  <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Eg: Cake Shop">
+
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label >Product Name</label>
+                  <input type="text" class="form-control"  placeholder="Eg: Beauty Cream">
+                </div>
+              </div>
+              <div class="col-6" *ngIf = "hasAccess('ROLE_SUPER_ADMIN')">
+                  <div class="form-group">
+                    <label >Service Area</label>
+                    <input type="text" class="form-control"  placeholder="Eg: Delhi">
+                  </div>
+                </div>
+              <div [ngClass]="{'col-12' : !(hasAccess('ROLE_SUPER_ADMIN'))}" class="col-6 text-right">
+                  <button class="btn btn-primary  btn-sm" >Search</button>&nbsp;
+                <button class="btn btn-primary  btn-sm" >Clear</button>
+              </div>
+            </div>
+          </form>
+      </div>
+    </div>
+    <div class="card mt-1">
+      <div class="card-header d-flex align-items-baseline">
+        <h4 class="card-title mr-2">Item List</h4>
+        <!-- <div class="input-group w-25">
+            <div class="input-group-prepend">
+                <div class="input-group-text" id="btnGroupAddon">
+                    <i class="mdi mdi-magnify"></i>
+                </div>
+            </div>
+            <input type="text" class="form-control bg-light" placeholder="Search" aria-label="Search"
+                aria-describedby="btnGroupAddon">
+        </div> -->
+      </div>
+      <div class="card-body">
+        <div class="table-responsive" style="margin-top:30px">
+          <table class="table">
+            <thead>
+              <tr>
+                  <th>
+                      Item Name
+                  </th>
+                  <th>
+                      Shop Name
+                    </th>
+                <th>
+                  Category Name
+                </th>
+                <th>
+                  Value
+                </th>
+                <th>
+                  Status
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let i of itemList | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                  <td>
+                      <img [src]="i.productImage?.url ? i.productImage?.url : 'assets/images/faces/face1.jpg'" class="mr-2" alt="image">
+                      {{i.title}}
+                    </td>
+                    <td>
+                        {{i.shopManagement.name}}
+                      </td>
+                <td>
+
+                  {{i.categoryDetails.name}}
+                </td>
+                <td>
+                  {{i.price}}
+                </td>
+                <td>
+                  <label class="badge badge-success" *ngIf="i.active">Available</label>
+                  <label class="badge badge-danger" *ngIf="!i.active">UnAvailable</label>
+                </td>
+                <!-- <td class="d-flex justify-content-around">
+                  <i class="mdi mdi-pencil-box mdi-24px text-primary c-pointer"></i>
+                  <i class="mdi mdi-delete mdi-24px text-danger c-pointer"></i>
+                </td> -->
+              </tr>
+            </tbody>
+          </table>
+          <!-- <ngb-pagination class="d-flex justify-content-center" [collectionSize]="120" [(page)]="page" [maxSize]="5"
+            [rotate]="true" [boundaryLinks]="true"></ngb-pagination> -->
+            <ngb-pagination class="d-flex justify-content-center" *ngIf="itemList != null && itemList.length>0" [collectionSize]="itemList.length" [(page)]="page" [pageSize]="pageSize" [boundaryLinks]="true"></ngb-pagination>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </div>

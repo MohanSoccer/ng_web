@@ -1,0 +1,74 @@
+<div class="row">
+  <div class="col-12 grid-margin">
+    <div class="card">
+      <div class="card-header d-flex align-items-baseline">
+        <h4 class="card-title mr-2">Area List</h4>
+        <!-- <div class="input-group w-25">
+          <div class="input-group-prepend">
+            <div class="input-group-text" id="btnGroupAddon">
+              <i class="mdi mdi-magnify"></i>
+            </div>
+          </div>
+          <input type="text" class="form-control bg-light" placeholder="Search" aria-label="Search"
+            aria-describedby="btnGroupAddon">
+        </div> -->
+      </div>
+      <div class="card-body">
+        <div class="table-responsive" style="margin-top:30px">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>
+                  Area Name
+                </th>
+                <th>
+                  Radius
+                </th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let s of serviceAreaList | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                <td>
+                  {{s.name}}
+                </td>
+                <td>
+                  {{s.serviceRadius}}
+                </td>
+                <td class="d-flex justify-content-around">
+                  <i class="mdi mdi-pencil-box mdi-24px text-primary c-pointer" data-toggle="modal"
+                    data-target="#editModal" (click)="editServiceArea=s"></i>
+                  <i class="mdi mdi-delete mdi-24px text-danger c-pointer" (click)="deleteServiceArea(s.id)"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- <ngb-pagination class="d-flex justify-content-center" [collectionSize]="120" [(page)]="page" [maxSize]="5"
+            [rotate]="true" [boundaryLinks]="true"></ngb-pagination> -->
+          <ngb-pagination class="d-flex justify-content-center"
+            *ngIf="serviceAreaList != null && serviceAreaList.length>0" [collectionSize]="serviceAreaList.length"
+            [(page)]="page" [pageSize]="pageSize" [boundaryLinks]="true"></ngb-pagination>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<app-confirm-dialog></app-confirm-dialog>
+<div class="modal" tabindex="-1" role="dialog" id="editModal" tabindex="-1" role="dialog"
+  aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Service Area</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-add-service-area [edit]="true" [editServiceArea]="editServiceArea" (updated)="getServiceArea()">
+        </app-add-service-area>
+      </div>
+    </div>
+  </div>
+</div>

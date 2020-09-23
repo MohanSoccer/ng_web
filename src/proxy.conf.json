@@ -1,0 +1,57 @@
+{
+    "/auth/*": {
+        "target": "https://ferrous-agency-286401.el.r.appspot.com",
+        "secure": true,
+        "changeOrigin": true
+    },
+    "/order/orders/*": {
+        "target": "https://ferrous-agency-286401.el.r.appspot.com",
+        "secure": true,
+        "changeOrigin": true
+    },
+    "/category/*": {
+        "target": "https://ferrous-agency-286401.el.r.appspot.com",
+        "secure": true,
+        "changeOrigin": true
+    },
+    "/shops/*": {
+        "target": "https://ferrous-agency-286401.el.r.appspot.com",
+        "secure": true,
+        "changeOrigin": true
+    },
+    "/media/*": {
+        "target": "https://ferrous-agency-286401.el.r.appspot.com",
+        "secure": true,
+        "changeOrigin": true
+    },
+    "/register/*": {
+        "target": "https://ferrous-agency-286401.el.r.appspot.com",
+        "secure": true,
+        "changeOrigin": true
+    },
+    "/user/*": {
+        "target": "https://ferrous-agency-286401.el.r.appspot.com",
+        "secure": true,
+        "changeOrigin": true
+    },
+    "/rider/*": {
+        "target": "https://ferrous-agency-286401.el.r.appspot.com",
+        "secure": true,
+        "changeOrigin": true
+    },
+    "/product/*": {
+        "target": "https://ferrous-agency-286401.el.r.appspot.com",
+        "secure": true,
+        "changeOrigin": true
+    },
+    "/service-area/*": {
+        "target": "https://ferrous-agency-286401.el.r.appspot.com",
+        "secure": true,
+        "changeOrigin": true
+    },
+    "/employee/*": {
+        "target": "https://ferrous-agency-286401.el.r.appspot.com",
+        "secure": true,
+        "changeOrigin": true
+    }
+}

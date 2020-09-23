@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col-12 grid-margin">
+      <div class="card">
+        <div class="card-body">
+          <!-- <h4 class="card-title">Delivery People</h4> -->
+          <div class="card-body">
+            <div class="search-field d-none d-md-block">
+                <form class="d-flex align-items-center h-100" action="#">
+                    <div class="input-group">
+
+                        <div class="input-group-prepend bg-transparent">
+                            <i class="input-group-text border-1 mdi mdi-magnify"></i>
+                        </div>
+                        <input type="text" class="form-control border-1" placeholder="Search Category">
+                    </div>
+                </form>
+            </div>
+          <div class="table-responsive" style="margin-top:30px">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>
+                     Name	
+                  </th>
+                  <th width="300" class="text-center">
+                     Action
+                  </th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let cat of categoryList">
+                  <td>
+                    {{cat.name}}
+                  </td>
+                  <td class="d-flex justify-content-around">
+                    <i class="mdi mdi-pencil-box mdi-24px text-primary c-pointer"></i>
+                    <i class="mdi mdi-delete mdi-24px text-danger c-pointer"></i>                  
+                  </td>
+                 
+                </tr>
+                
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
